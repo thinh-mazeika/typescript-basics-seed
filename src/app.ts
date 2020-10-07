@@ -1,11 +1,29 @@
-const pizzasCount: number = 2;
+abstract class Sizes {
+  constructor(public sizes: string[]) {
+    this.sizes = sizes;
+  }
 
-function discountOrder(orders: number): boolean {
-  return orders >= 3;
+  getAvailableSize() {
+    return this.sizes;
+  }
+
+  setAvailableSize(sizes: string[]) {
+    this.sizes = sizes;
+  }
 }
 
-if (discountOrder(pizzasCount)) {
-  console.log(`You are entitled to get a discount`);
-} else {
-  console.log(`Buy more than 3 pizzas to get a discount`);
+class Pizza extends Sizes {
+  public toppings: string[] = [];
+  constructor(readonly name: string, public sizes: string[]) {
+    super(sizes);
+  }
+
+  public addToppings(topping: string) {
+    this.toppings.push(topping);
+  }
 }
+
+const pizza = new Pizza("BBQ", ["small, large"]);
+pizza.addToppings("chicken");
+
+console.log(pizza);
